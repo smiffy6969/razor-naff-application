@@ -1,0 +1,17 @@
+{
+    "name": "razor-naff-application",
+    "description": "Default starting point for creating an application using the NAFF library.",
+    "author": "Paul Smith (smiffy6969)",
+    "version": "1.0.0",
+    "homepage": "http://razorcms.co.uk",
+    "license": "MIT",
+    "private": false,
+    "keywords": ["razor-naff", "application", "default", "setup"],
+    "ignore": [".git"],
+    "dependencies": {
+        "razor-naff": "smiffy6969/razor-naff",
+        "razor-naff-components": "smiffy6969/razor-naff-components",
+        "webcomponentsjs": "webcomponents/webcomponentsjs",
+        "promise-polyfill": "taylorhakes/promise-polyfill"
+    }
+}

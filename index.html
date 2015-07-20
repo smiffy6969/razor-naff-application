@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title></title>
+		<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+		<!-- Polyfill native API's if missing -->
+		<script type="text/javascript" src="components/webcomponentsjs/webcomponents.min.js"></script>
+		<script type="text/javascript" src="components/promise-polyfill/Promise.min.js"></script>
+
+		<!-- Load the naff helper library -->
+		<script type="text/javascript" src="components/razor-naff/build/naff.bundled.min.js"></script>
+
+		<!-- Load app specific logic and style -->
+		<link rel="stylesheet" type="text/css" href="application/main-app.css">
+		<script type="text/javascript" src="application/main-app.js"></script>
+
+		<!-- Load any external components -->
+		<link rel="import" href="components/razor-naff-components/build/naff.vulc.html">
+	</head>
+	<body>
+		<main-app resolve>
+			<!-- <h1>Default razorNAFF Application Setup</h1> -->
+
+			<p>{{private.content}}</p>
+
+			<ul class="menu">
+				<li naff-on-click="setRoute('partial-one')" naff-class-selected="private.selected.partial-one">one</li>
+				<li naff-on-click="setRoute('partial-two')" naff-class-selected="private.selected.partial-two">two</li>
+			</ul>
+
+			<naff-partial basepath="application/partials" naff-partial="private.route"></naff-partial>
+		</main-app>
+	</body>
+</html>
