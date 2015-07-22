@@ -25,16 +25,18 @@
 	</head>
 	<body>
 		<main-app resolve>
-			<!-- <h1>Default razorNAFF Application Setup</h1> -->
+			<naff-menu logo-text="razorNaff Application" children="expandable" position="left" default-route="partial-one" menu-items='[
+				{"route":"partial-one","label":"Page One","icon":"building"},
+				{"route":"partial-two","label":"Page Two","icon":"car"}
+			]'></naff-menu>
 
-			<p>{{private.content}}</p>
+			<naff-page>
+				<h1>Default razorNAFF Application Setup</h1>
 
-			<ul class="menu">
-				<li naff-on-click="setRoute('partial-one')" naff-class-selected="private.selected.partial-one">one</li>
-				<li naff-on-click="setRoute('partial-two')" naff-class-selected="private.selected.partial-two">two</li>
-			</ul>
+				<p>{{private.content}}</p>
 
-			<naff-partial basepath="application/partials" naff-partial="private.route"></naff-partial>
+				<naff-partial basepath="application/partials" naff-partial="private.route"></naff-partial>
+			</naff-page>
 		</main-app>
 	</body>
 </html>
