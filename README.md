@@ -10,7 +10,7 @@ Razor NAFF Application is a default application setup, a nice place to start whe
 ## Installation  
 
 
-Download this zip, then run
+Download this zip archive using the button to the right, then run the following in command line in the directory you unzipped the zip file to...
 
 
 ```
