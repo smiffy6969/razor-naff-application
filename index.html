@@ -25,10 +25,19 @@
 	</head>
 	<body>
 		<main-app resolve>
-			<naff-menu logo-text="razorNaff Application" children="expandable" position="left" default-route="partial-one" menu-items='[
-				{"route":"partial-one","label":"Page One","icon":"building"},
-				{"route":"partial-two","label":"Page Two","icon":"car"}
-			]'></naff-menu>
+			<naff-menu
+				side-logo="assets/images/blade-dark-green-50-circle.png"
+				top-logo="assets/images/blade-dark-green-200-circle.png"
+				side-logo-text="razorNaff Application"
+				top-logo-text="razorNaff Application"
+				children="expandable"
+				position="left"
+				default-route="partial-one"
+				menu-items='[
+					{"route":"partial-one","label":"Page One","icon":"building"},
+					{"route":"partial-two","label":"Page Two","icon":"car"}
+				]'>
+			</naff-menu>
 
 			<naff-page>
 				<h1>Default razorNAFF Application Setup</h1>
