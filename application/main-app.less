@@ -4,17 +4,82 @@
  */
 main-app
 {
-	* { font-family: sans-serif; }
-
-	.menu
+	*
 	{
-		li
-		{
-			color: lighten(blue, 40%);
-			cursor: pointer;
+		font-family: sans-serif;
+		font-size: 14px;
+	}
 
-			&.selected { color: lighten(blue, 20%); }
-			&:hover { color: lighten(blue, 10%); }
+	h1 { line-height: 22px; font-size: 22px; }
+	h2 { line-height: 20px; font-size: 20px; }
+	h3 { line-height: 18px; font-size: 18px; }
+	h4 { line-height: 16px; font-size: 16px; }
+	h5 { line-height: 15px; font-size: 15px; }
+	h6 { line-height: 14px; font-size: 14px; }
+	p { line-height: 14px; font-size: 14px; }
+
+	// Form Specific
+	.input-group
+	{
+		label { padding-bottom: 10px; }
+	}
+
+	.horizontal-input-group
+	{
+		label
+		{
+			float: left;
+			padding-right: 10px;
+			margin-top: 3px;
+			width: 40%;
+			display: inline-block;
+			text-align: right;
+			box-sizing: border-box;
 		}
+
+		naff-input
+		{
+			width: 58%;
+			display: inline-block;
+		}
+
+		[is="naff-x-select"]
+		{
+			margin-bottom: 10px;
+			display: inline-block;
+		}
+	}
+
+	// Modals
+	.login-modal { width: 420px; }
+	.register-modal { width: 420px; }
+
+	.profile-modal
+	{
+		width: 420px;
+
+		[disabled] { opacity: 0.6; }
+
+		.safety-switch
+		{
+			float: right;
+			position: relative;
+			top: -8px;
+		}
+
+		h4
+		{
+			margin-top: 10px;
+			margin-bottom: 15px;
+
+			&:first-child { margin-top: 0px; }
+		}
+	}
+
+	// General
+	.menu-button-box
+	{
+		padding: 10px;
+		text-align: center;
 	}
 }

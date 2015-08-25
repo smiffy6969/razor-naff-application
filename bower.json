@@ -6,6 +6,7 @@
     "homepage": "http://razorcms.co.uk",
     "license": "MIT",
     "private": false,
+    "main": "index.html",
     "keywords": ["razor-naff", "application", "default", "setup"],
     "ignore": [".git"],
     "dependencies": {

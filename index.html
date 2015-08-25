@@ -28,24 +28,176 @@
 			<naff-menu
 				side-logo="assets/images/blade-dark-green-50-circle.png"
 				top-logo="assets/images/blade-dark-green-200-circle.png"
-				side-logo-text="razorNaff Application"
-				top-logo-text="razorNaff Application"
+				side-logo-text="razorNAFF Application"
+				top-logo-text="razorNAFF Application"
 				children="expandable"
 				position="left"
-				default-route="partial-one"
-				menu-items='[
-					{"route":"partial-one","label":"Page One","icon":"building"},
-					{"route":"partial-two","label":"Page Two","icon":"car"}
-				]'>
+				default-route="home"
+				naff-menu-items='private.menuItems'>
+
+				<!-- Login -->
+				<div class="menu-button-box" naff-unless="private.user.id">
+					<button class="login" is="naff-x-button" size="medium" shape="round" naff-on-click="showLogin()">
+						<naff-icon name="sign-in"></naff-icon> Login
+					</button>
+					<button class="register" is="naff-x-button" size="medium" shape="round" naff-on-click="showRegister()">
+						<naff-icon name="plus"></naff-icon> Register
+					</button>
+				</div>
+
+				<!-- Logout/settings -->
+				<div class="menu-button-box" naff-if="private.user.id">
+					<button class="logout" is="naff-x-button" size="medium" shape="round" naff-on-click="logout()">
+						<naff-icon name="sign-out"></naff-icon> Logout
+					</button>
+					<button class="profile" is="naff-x-button" size="medium" shape="round" naff-on-click="showProfile()">
+						<naff-icon name="user"></naff-icon> Profile
+					</button>
+				</div>
 			</naff-menu>
 
+			<!-- Pages -->
 			<naff-page>
-				<h1>Default razorNAFF Application Setup</h1>
+				<naff-partial naff-unless="private.user.id" basepath="application/partials" partial="home"></naff-partial>
+				<naff-partial naff-if="private.user.id" basepath="application/partials" naff-partial="private.route"></naff-partial>
 
-				<p>{{private.content}}</p>
-
-				<naff-partial basepath="application/partials" naff-partial="private.route"></naff-partial>
+				<ul>
+					<li>Sort out rendering issues when using naff-input and lining up labels when using other inputs like selects</li>
+					<li>REMOVE MY PASSWORDS AND EMAILS</li>
+					<li>then release naff-application update with rars</li>
+					<li>then add new rars git repo</li>
+					<li>then sort out deps for naff application to add rars</li>
+				</ul>
 			</naff-page>
+
+			<!-- Login Modal -->
+			<naff-modal naff-toggle="private.modal.login" class="login-modal">
+				<heading>Login</heading>
+				<main>
+					<div class="horizontal-input-group">
+						<label>Email</label>
+						<naff-input type="text" naff-value="private.login.username" naff-on-keypress="login()"></naff-input>
+					</div>
+					<div class="horizontal-input-group">
+						<label>Password</label>
+						<naff-input type="password" naff-value="private.login.password" naff-on-keypress="login()"></naff-input>
+					</div>
+				</main>
+				<footer>
+					<button is="naff-x-button" class="pull-left" size="medium" shape="round" naff-on-click="passwordResetRequest()" naff-disabled="private.login.username | not">
+						<naff-icon name="exclamation-circle"></naff-icon> Password Reset
+					</button>
+					<button is="naff-x-icon-button" size="medium" shape="round" name="check" color="green" naff-on-click="login()"></button>
+				</footer>
+			</naff-modal>
+
+			<!-- Register Modal -->
+			<naff-modal naff-toggle="private.modal.register" class="register-modal">
+				<heading>Register Account</heading>
+				<main>
+					<form is="naff-x-form" naff-error="private.register.error">
+						<div class="horizontal-input-group">
+							<label>Name</label>
+							<naff-input type="text" naff-value="private.register.name" naff-on-keypress="register()" validate="^.+$" validate-message="Cannot be empty" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Email</label>
+							<naff-input type="text" naff-value="private.register.email" naff-on-keypress="register()" validate="^[a-z0-9_\-\.]{1,}@[a-z0-9_\-\.]{2,}\.[a-z]{2,}$" validate-message="Invalid email address" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Password</label>
+							<naff-input type="password" naff-value="private.register.password" naff-on-keypress="register()" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Confirm Password</label>
+							<naff-input type="password" naff-value="private.register.confirmPassword" naff-on-keypress="register()" naff-match="private.register.password" match-message="Passwords do not match" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Are You Human?</label>
+							<naff-input type="text" naff-value="private.register.human" naff-on-keypress="register()"></naff-input>
+						</div>
+					</form>
+				</main>
+				<footer>
+					<button is="naff-x-icon-button" size="medium" shape="round" name="check" color="green" naff-on-click="register()" naff-disabled="private.register.error"></button>
+				</footer>
+			</naff-modal>
+
+			<!-- Profile Modal -->
+			<naff-modal naff-toggle="private.modal.profile" class="profile-modal">
+				<heading>Edit Profile</heading>
+				<main>
+					<form is="naff-x-form" naff-error="private.user.error">
+						<h4>Change Details</h4>
+						<div class="horizontal-input-group">
+							<label>Password</label>
+							<naff-input type="password" error="1" naff-value="private.user.password" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Name</label>
+							<naff-input type="text" naff-value="private.user.name" validate="^.+$" validate-message="Cannot be empty" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Email</label>
+							<naff-input type="text" naff-value="private.user.email_address" validate="^[a-z0-9_\-\.]{1,}@[a-z0-9_\-\.]{2,}\.[a-z]{2,}$" validate-message="Invalid email address" required></naff-input>
+						</div>
+						<h4 naff-disabled="private.user.safetyPassword | not">Change Password <naff-switch naff-toggle="private.user.safetyPassword" class="safety-switch"></naff-switch></h4>
+						<div class="horizontal-input-group" naff-disabled="private.user.safetyPassword | not">
+							<label>New Password</label>
+							<naff-input type="password" naff-disabled="private.user.safetyPassword | not" naff-value="private.user.new_password" naff-on-keypress="setConfirmPassword()" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group" naff-disabled="private.user.safetyPassword | not">
+							<label>Confirm New Password</label>
+							<naff-input type="password" naff-disabled="private.user.safetyPassword | not" naff-value="private.user.confirmNewPassword" naff-match="private.user.new_password" match-message="Passwords do not match" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<h4 naff-disabled="private.user.safetyDelete | not">Delete Account <naff-switch naff-toggle="private.user.safetyDelete" class="safety-switch"></naff-switch></h4>
+						<div class="horizontal-input-group" naff-disabled="private.user.safetyDelete | not">
+							<label>Delete Account</label>
+							<select is="naff-x-select" naff-value="private.user.delete" naff-disabled="private.user.safetyDelete | not">
+								<option value="0" selected>No</option>
+								<option value="1" selected>Yes</option>
+							</select>
+						</div>
+					</form>
+				</main>
+				<footer>
+					<button is="naff-x-icon-button" size="medium" shape="round" name="check" color="green" naff-on-click="profile()" naff-disabled="private.user.error"></button>
+				</footer>
+			</naff-modal>
+
+			<!-- Password Reset Modal -->
+			<naff-modal naff-toggle="private.modal.reset" class="password-reset-modal">
+				<heading>Password Reset</heading>
+				<main>
+					<form is="naff-x-form" naff-error="private.reset.error">
+						<div class="horizontal-input-group">
+							<label>Email</label>
+							<naff-input type="text" naff-value="private.reset.email" naff-on-keypress="passwordReset()" validate="^[a-z0-9_\-\.]{1,}@[a-z0-9_\-\.]{2,}\.[a-z]{2,}$" validate-message="Invalid email address" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>New Password</label>
+							<naff-input type="password" naff-value="private.reset.password" naff-on-keypress="passwordReset()" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Confirm New Password</label>
+							<naff-input type="password" naff-value="private.reset.confirmPassword" naff-on-keypress="passwordReset()" naff-match="private.reset.new_password" match-message="Passwords do not match" validate="^((?=\S*?[a-z])(?=\S*?[0-9]).{5,})\S$" validate-message="Minimum 6 letters and numbers" required></naff-input>
+						</div>
+						<div class="horizontal-input-group">
+							<label>Are You Human?</label>
+							<naff-input type="text" naff-value="private.reset.human" naff-on-keypress="passwordReset()"></naff-input>
+						</div>
+					</form>
+				</main>
+				<footer>
+					<button is="naff-x-icon-button" size="medium" shape="round" name="check" color="green" naff-on-click="passwordReset()" naff-disabled="private.reset.error"></button>
+				</footer>
+			</naff-modal>
+
+			<!-- Message Box -->
+			<naff-message class="messager" position="top" naff-toggle="private.message.toggle" naff-color="private.message.color">
+				<naff-icon naff-if="private.message.icon" naff-name="private.message.icon"></naff-icon>
+				{{private.message.content}}
+			</naff-message>
 		</main-app>
 	</body>
 </html>

@@ -4,13 +4,19 @@
 __Browser Support__ - IE9+, Chrome, FF, Safari, Opera
 
 
-Razor NAFF Application is a default application setup, a nice place to start when creating an application using naff and naff-components. This is supposed to help you in starting a complete new JS application complete with routing.
+Razor NAFF Application is a default application setup, a nice place to start when creating an application using naff and naff-components. This is supposed to help you in starting a complete new JS application complete with routing, backend DB (using RARS), authentication and basic tools for managing users via login authentication by registering users.
 
 
 ## Installation  
 
 
-Download this zip archive using the button to the right, then run the following in command line in the directory you unzipped the zip file to...
+Download the latest release of this repository, extract to a place you wish to install razorNAFF.
+
+
+Next go to [https://github.com/smiffy6969/rars] and download the latest release of the RARS PHP resource server, extract this to the same location as above (should be placed in a folder called 'rars').
+
+
+Once you have these two things setup (naff-application for JS UI and rars for backend services), run the following in command line in the directory you unzipped the files to...
 
 
 ```
@@ -18,7 +24,13 @@ bower install
 ```
 
 
-This will pull in naff and all required dependencies, storing them in the correct location (components), alternatively alter the bower.json file to configure your app name etc.
+This will pull in naff JS files and all required dependencies, storing them in the correct location (components), alternatively alter the bower.json file to configure your app name etc.
+
+
+The end result is razor-naff, razor-naff-components and required dependencies for JS UI and RARS for backend services (via REST/JSON to DB)
+
+
+In order to use the RARS server, you will need to configure the index.php file in rars folder, setting all the config options to configure your DB, email settings etc, and then ensure the connecting DB has the correct required tables and columns as found in the RARS README file.
 
 
 ## Usage

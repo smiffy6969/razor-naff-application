@@ -1,0 +1,25 @@
+<script>
+/**
+ * razorNAFF Web Components application, bootstrapping to <main-app></main-app> element
+ * @param name The name of the element to bootstrap too
+ * @param private The object holding all properties for app (stops issues with binding loss on repeats in rivets), change this name if you wish
+ * @function ready When the app is ready to rock, this is your main place for doing cool stuff
+ */
+naff.registerApplication({
+	name: 'partial-one',
+
+	private: {
+		content: 'This is binded content from partial one, to show seperate scoping of apps (as it is named the same as the parent app binding, but they do not collide!!)'
+	},
+
+	created: function()
+	{
+		console.log('partial one app created');
+	},
+
+	ready: function()
+	{
+		console.log('partial one app ready');
+	}
+});
+</script>
